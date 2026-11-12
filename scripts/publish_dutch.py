@@ -211,7 +211,7 @@ flash();progress();writingChanged();
 # Keep generated lessons visually consistent with the Jianmu world-tree site.
 shared_style = '<link rel="stylesheet" href="../../../assets/site.css">'
 shared_nav = ('<header class="site-header"><a class="site-brand" href="https://kkkallio.github.io/">KALLIO\'S PAGE</a>'
-              '<nav class="site-nav"><a href="https://kkkallio.github.io/">PERSONAL HOME</a>'
+              '<nav class="site-nav">'
               '<a href="../../../">建木 · JIANMU</a><a href="../../../modules/languages/">语言 · LANGUAGES</a>'
               '<a href="../">🇳🇱 荷兰语 · DUTCH</a></nav></header>')
 page = page.replace('</head>', shared_style + '</head>').replace('<body>', '<body>' + shared_nav)
