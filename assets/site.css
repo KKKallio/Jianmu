@@ -99,3 +99,6 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 .lesson-footer-link{text-align:center;padding:24px 0 0}
 .lesson-footer-link a{display:inline-block;padding:12px 20px;border:1px solid var(--line);border-radius:5px;text-decoration:none;font-weight:600}
 @media(max-width:700px){.writing-columns{grid-template-columns:1fr}.writing-input textarea{min-height:180px!important}}
+
+/* Lesson navigation and model-answer reveal */
+.writing-example[hidden]{display:none!important}.writing-columns:has(.writing-example[hidden]){grid-template-columns:minmax(0,1fr)}.lesson-bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:12px;margin-top:26px}.lesson-bottom-nav a,.lesson-bottom-nav span{display:inline-block;padding:11px 12px;font-size:13px}.lesson-bottom-nav>a:first-child,.lesson-bottom-nav>span:first-child{text-align:left}.lesson-bottom-nav>a:last-child,.lesson-bottom-nav>span:last-child{text-align:right}.lesson-bottom-nav .lesson-nav-home{text-align:center;text-decoration:underline}.lesson-nav-disabled{color:var(--muted);opacity:.55}@media(max-width:560px){.lesson-bottom-nav{gap:4px}.lesson-bottom-nav a,.lesson-bottom-nav span{font-size:11px;padding:8px 3px}}
