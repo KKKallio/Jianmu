@@ -220,7 +220,7 @@ target.write_text(page, encoding="utf-8")
 # Append a new card before the closing </main> of the Dutch homepage.
 homepage = ROOT / "index.html"
 content = homepage.read_text(encoding="utf-8")
-card = (f'<a class="card day-card" href="lessons/day-{number:02d}.html">')
+card = (f'<a class="card day-card" href="lessons/day-{number:02d}.html">'
         f'<div class="meta">DAY {number:02d} · {esc(TODAY)}</div>'
         f'<h3>{esc(lesson["title"])}</h3><p>{esc(lesson["topic_zh"])}</p>'
         f'<span class="meta">开始学习 →</span></a>')
