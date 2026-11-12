@@ -46,3 +46,20 @@ function init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
+/* Browser-generated Dutch pronunciation for vocabulary cards. */
+function pronounceDutchCard(entry){
+ if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
+  window.alert('此浏览器不支持语音朗读 · Speech synthesis is unavailable in this browser.');
+  return;
+ }
+ const text=String(entry||'').split(';')[0].trim();
+ if(!text)return;
+ window.speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(text);
+ utterance.lang='nl-NL';
+ utterance.rate=0.85;
+ const voices=window.speechSynthesis.getVoices();
+ const voice=voices.find(v=>v.lang.toLowerCase()==='nl-nl')||voices.find(v=>v.lang.toLowerCase().startsWith('nl'));
+ if(voice)utterance.voice=voice;
+ window.speechSynthesis.speak(utterance);
+}
