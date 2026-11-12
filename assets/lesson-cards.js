@@ -6,8 +6,12 @@ function init(){
  const action=typeof window.grade==='function'?'grade':'check';
  if(original&&typeof quizzes!=='undefined'){
   window[action]=function(section){
-   original(section);
    const questions=quizzes[section]||[];
+   const allAnswered=questions.every((q,index)=>{const input=q[1].length?document.querySelector('input[name="'+section+index+'"]:checked'):document.querySelector('input[name="'+section+index+'"]');return !!input&&String(input.value).trim()!==''});
+   original(section);
+   // A section is completed only after every question has an answer.
+   if(!allAnswered&&typeof state!=='undefined'&&state.done){state.done[section]=false;if(typeof progress==='function')progress()}
+   let correctCount=0;
    const area=document.getElementById(section);
    if(!area)return;
    questions.forEach((q,index)=>{
@@ -19,12 +23,16 @@ function init(){
     const raw=input?input.value:'';
     const expected=options.length?options[q[2]]:(Array.isArray(q[2])?q[2][0]:'');
     const correct=options.length?!!input&&Number(raw)===q[2]:!!normalize(raw)&&q[2].some(v=>normalize(v)===normalize(raw));
+    if(correct)correctCount++;
+    cell.dataset.answerStatus=!normalize(raw)?'unanswered':correct?'correct':'incorrect';
     feedback.classList.toggle('correct',correct);
     feedback.classList.toggle('incorrect',!correct);
     feedback.textContent=!normalize(raw)?'未作答 · Not answered · 参考答案 · Answer: '+expected:correct?'✓ 正确 · Correct':'✗ 需复习 · Review · 参考答案 · Answer: '+expected;
    });
    const summary=document.getElementById(section+'Result');
-   if(summary){summary.hidden=true;summary.setAttribute('aria-hidden','true')}
+   if(summary){summary.hidden=false;summary.removeAttribute('aria-hidden');summary.classList.add('quiz-score-summary');summary.textContent='✓ 正确 · Correct: '+correctCount+' / '+questions.length+'   ·   ✗ 错误 · Incorrect: '+(questions.length-correctCount-questions.filter((q,i)=>area.children[i]?.dataset.answerStatus==='unanswered').length)+(allAnswered?'':'   ·   请完成所有题目 · Answer every question')}
+   area.dispatchEvent(new CustomEvent('quiz-graded'));
+
   };
  }
 
@@ -38,7 +46,8 @@ function init(){
   const counter=document.createElement('span');counter.className='quiz-counter';counter.setAttribute('aria-live','polite');
   const next=document.createElement('button');next.type='button';next.textContent='→';next.setAttribute('aria-label','下一题 · Next question');
   controls.append(back,counter,next);area.after(controls);
-  function show(n){current=Math.max(0,Math.min(items.length-1,n));items.forEach((el,i)=>{el.hidden=i!==current;el.classList.add('quiz-card')});counter.textContent=(current+1)+'/'+items.length;back.disabled=current===0;next.disabled=current===items.length-1}
+  function show(n){current=Math.max(0,Math.min(items.length-1,n));items.forEach((el,i)=>{el.hidden=i!==current;el.classList.add('quiz-card')});counter.textContent=(current+1)+'/'+items.length;counter.className='quiz-counter'+(items[current].dataset.answerStatus?' quiz-counter-'+items[current].dataset.answerStatus:'');back.disabled=current===0;next.disabled=current===items.length-1}
+  area.addEventListener('quiz-graded',()=>show(current));
   back.addEventListener('click',()=>show(current-1));next.addEventListener('click',()=>show(current+1));
   area.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input.fill-answer')){e.preventDefault();if(current<items.length-1)show(current+1)}});
   show(0);
