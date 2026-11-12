@@ -29,14 +29,14 @@ modules/language/dutch/lessons/day-NNN.html
 **Always use three-digit day filenames** (`day-001.html` through `day-999.html`) and display `Day 001` etc. Update course index and prev/next links. Preserve redirects from older `day-NN.html` links. Do not change existing localStorage keys without migration.
 
 ## Daily lesson: eight sections
-1. **词汇 · Vocabulary**: centered flip card with ← ⟳ →; numeric counter `2/20` only; Quizlet button at top-right of section heading; do not show a full word list. Export Dutch<TAB>English, one per line; nouns with `de/het`; verbs as `infinitive; past tense; past participle`.
+1. **词汇 · Vocabulary**: centered flip card with ← ⟳ → and a pronunciation button for the Dutch side using browser speech synthesis (`nl-NL`, with graceful unsupported-browser handling); numeric counter `2/20` only; Quizlet button at top-right of section heading; do not show a full word list. Export Dutch<TAB>English, one per line; nouns with `de/het`; verbs as `infinitive; past tense; past participle`.
 2. **语法 · Grammar**: list topics with simple numbered labels, not heavy black headings; include telling time here, not in vocabulary; bilingual explanations, natural Dutch examples, interactive exercises.
 3. **听力 · Listening**: original dialogue, full hideable transcript, comprehension, free external listening links. Label browser TTS accurately; never imply external audio matches the original transcript.
 4. **口语 · Speaking**: use separate task-switch buttons when multiple tasks exist; provide model responses; do not show a manual speaking-completion button.
 5. **阅读 · Reading**: coherent Dutch text, bilingual expression notes, comprehension.
 6. **写作 · Writing**: authentic task, text area and directly visible model text side-by-side on desktop (stack on mobile); word count; no assessment-criteria table. Keyword/length checks are not official grades.
 7. **荷兰社会 · Dutch society (KNM)**: brief, non-redundant Chinese, English and Dutch explanations before scenario questions.
-8. **复习 · Review**: cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, show previous-day navigation at bottom left, the daily course index centered, and next-day navigation at bottom right. Disable unavailable days rather than linking to missing pages; do not place a back link above the lesson.
+8. **复习 · Review**: no introductory paragraphs before questions; cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, show previous-day navigation at bottom left, the daily course index centered, and next-day navigation at bottom right. Disable unavailable days rather than linking to missing pages; do not place a back link above the lesson.
 
 ## Shared interaction rules
 - For grammar, listening, reading, KNM and review, display one question at a time, with ← / →, numeric counter, and `提交 · Submit`.
