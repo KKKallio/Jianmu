@@ -210,20 +210,21 @@ flash();progress();writingChanged();
 """
 # Keep generated lessons visually consistent with the Jianmu world-tree site.
 shared_style = '<link rel="stylesheet" href="../../../assets/site.css">'
-shared_nav = ('<header class="site-header"><a class="site-brand" href="../../../">JIANMU · 建木</a>'
-              '<nav class="site-nav"><a href="../../../">HOME</a><a href="../">DUTCH</a>'
-              '<a href="https://kkkallio.github.io/">KALLIO\'S PAGE</a></nav></header>')
+shared_nav = ('<header class="site-header"><a class="site-brand" href="https://kkkallio.github.io/">KALLIO\'S PAGE</a>'
+              '<nav class="site-nav"><a href="https://kkkallio.github.io/">PERSONAL HOME</a>'
+              '<a href="../../../">建木 · JIANMU</a><a href="../../../modules/languages/">语言 · LANGUAGES</a>'
+              '<a href="../">🇳🇱 荷兰语 · DUTCH</a></nav></header>')
 page = page.replace('</head>', shared_style + '</head>').replace('<body>', '<body>' + shared_nav)
 target.write_text(page, encoding="utf-8")
 
 # Append a new card before the closing </main> of the Dutch homepage.
 homepage = ROOT / "index.html"
 content = homepage.read_text(encoding="utf-8")
-card = (f'<a class="card" href="lessons/day-{number:02d}.html">'
+card = (f'<a class="card day-card" href="lessons/day-{number:02d}.html">')
         f'<div class="meta">DAY {number:02d} · {esc(TODAY)}</div>'
-        f'<h2>{esc(lesson["title"])}</h2><p>{esc(lesson["topic_zh"])}</p>'
-        f'<strong>开始学习 →</strong></a>')
+        f'<h3>{esc(lesson["title"])}</h3><p>{esc(lesson["topic_zh"])}</p>'
+        f'<span class="meta">开始学习 →</span></a>')
 if f'lessons/day-{number:02d}.html' not in content:
-    content = content.replace("</main>", card + "</main>")
+    content = content.replace('</div><p class="small">课程自动添加', card + '</div><p class="small">课程自动添加')
     homepage.write_text(content, encoding="utf-8")
 print(f"Published {target} for {TODAY}")
