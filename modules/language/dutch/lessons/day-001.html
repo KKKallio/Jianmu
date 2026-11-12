@@ -21,6 +21,11 @@ function writeChanged(){let t=document.getElementById('writing').value.trim(),n=
 function scoreWriting(){document.getElementById('writingExample').hidden=false;let t=document.getElementById('writing').value.toLowerCase(),n=t.trim()?t.trim().split(/\s+/).length:0,checks=[/bedankt|dank je/,/donderdag/,/werk|werken/,/vrijdag/,/tien uur|10 uur/],hits=checks.filter(r=>r.test(t)).length,score=hits*3+(n>=40&&n<=60?5:0);document.getElementById('writingResult').textContent='任务要点检查 · Task checklist: '+hits+'/5 · 字数 · Words: '+n+' (40–60). 此项不是正式评分 · This is not an official grade.';if(n>=40&&n<=60&&hits===5)mark('writing')}
 function showSpeakingTask(n){for(const k of [1,2])document.getElementById('speaking-task-'+k).hidden=k!==n;state.speakingViewed=state.speakingViewed||[];if(!state.speakingViewed.includes(n))state.speakingViewed.push(n);if(state.speakingViewed.length===2)mark('speaking');else save()}
 render();if(state.draft){document.getElementById('writing').value=state.draft;document.getElementById('words').textContent=state.draft.trim().split(/\s+/).length+' words'}if(state.answers){Object.entries(state.answers).forEach(([id,vals])=>vals.forEach((v,j)=>{const radio=document.querySelector('input[name="'+id+j+'"][value="'+v+'"]');const fill=document.querySelector('input.fill-answer[name="'+id+j+'"]');if(radio)radio.checked=true;else if(fill)fill.value=v}))}flash();progress();
+// Re-read saved completion state whenever this page is reopened or restored from cache.
+function refreshLessonProgress(){try{const saved=JSON.parse(localStorage.getItem('jianmu-dutch-day1')||'null');if(saved&&saved.done){state.done={...state.done,...saved.done};}}catch(e){}progress()}
+window.addEventListener('pageshow',refreshLessonProgress);
+window.addEventListener('focus',refreshLessonProgress);
+window.addEventListener('storage',e=>{if(e.key==='jianmu-dutch-day1')refreshLessonProgress()});
 </script>
 <script src="../../../../assets/lesson-cards.js"></script>
 </body></html>
