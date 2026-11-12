@@ -112,3 +112,12 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 .lesson-sticky p[id="status"],.lesson-sticky p[id="pct"]{margin:10px 0 9px!important;line-height:1.6}
 .lesson-sticky .track,.lesson-sticky .progress{margin:0 0 2px!important}
 @media(max-width:650px){.lesson-sticky{padding:12px 13px 14px!important}}
+
+/* Compact speaker control and per-question grading */
+.flashcard-stage .pronounce-card{min-width:40px;min-height:40px;padding:8px!important;font-size:19px!important;display:flex;align-items:center;justify-content:center}
+.answer-feedback.correct{background:#e7f5e9!important;border-color:#a4d4ac!important;color:#245b34!important}
+.answer-feedback.incorrect{background:#fdebea!important;border-color:#eab0ab!important;color:#8c302c!important}
+.quiz-counter-correct{background:#e7f5e9;color:#245b34;border-radius:6px;padding:4px 9px}
+.quiz-counter-incorrect{background:#fdebea;color:#8c302c;border-radius:6px;padding:4px 9px}
+.quiz-counter-unanswered{background:#f4f4f4;color:#666;border-radius:6px;padding:4px 9px}
+.quiz-score-summary{display:block!important;margin:12px 0;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-size:14px;line-height:1.6}
