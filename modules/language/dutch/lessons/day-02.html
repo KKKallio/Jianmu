@@ -14,4 +14,4 @@ function writingChange(){let s=document.getElementById('writing').value.trim();l
 function readDialogue(){speechSynthesis.cancel();const text=document.getElementById('listeningText').innerText;const lines=text.split(/\n/).map(s=>s.replace(/^(Emma|Medewerker):\s*/,'').trim()).filter(Boolean);const speakAt=i=>{if(i>=lines.length)return;const u=new SpeechSynthesisUtterance(lines[i]);u.lang='nl-NL';u.rate=.88;u.pitch=i%2===0?1.12:.9;u.onend=()=>speakAt(i+1);speechSynthesis.speak(u)};speakAt(0)}
 function scoreWriting(){const t=document.getElementById('writing').value.trim().toLowerCase();const n=t?t.split(/\s+/).length:0;const checks=[[/bedankt|dank je/, '感谢'],[/twee bananen|2 bananen/,'两根香蕉'],[/een fles water/,'一瓶水'],[/werk|werken/,'工作原因'],[/kun je|zou je|wil je/,'请求帮助']];const hits=checks.filter(x=>x[0].test(t));const points=hits.length*3+(n>=40&&n<=60?5:0);document.getElementById('writingScore').textContent='任务完成度 '+points+'/20（自动检查）· '+hits.length+'/5 内容点 · '+n+' 词。待补充：'+checks.filter(x=>!x[0].test(t)).map(x=>x[1]).join('、');}
 render();card();progress();
-</script></html>
+</script><script src="../../../../assets/lesson-cards.js"></script></html>
