@@ -208,6 +208,12 @@ flash();progress();writingChanged();
 </script></main></body></html>
 {date_marker}
 """
+# Keep generated lessons visually consistent with the Jianmu world-tree site.
+shared_style = '<link rel="stylesheet" href="../../../assets/site.css">'
+shared_nav = ('<header class="site-header"><a class="site-brand" href="../../../">JIANMU · 建木</a>'
+              '<nav class="site-nav"><a href="../../../">HOME</a><a href="../">DUTCH</a>'
+              '<a href="https://kkkallio.github.io/">KALLIO\'S PAGE</a></nav></header>')
+page = page.replace('</head>', shared_style + '</head>').replace('<body>', '<body>' + shared_nav)
 target.write_text(page, encoding="utf-8")
 
 # Append a new card before the closing </main> of the Dutch homepage.
