@@ -106,3 +106,9 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 /* Pronunciation control on Dutch vocabulary cards */
 .flashcard-stage .pronounce-card{display:block;margin:10px auto 0;padding:8px 13px;font-size:13px;line-height:1.4;border:1px solid var(--line);border-radius:999px;cursor:pointer}
 .flashcard-stage .pronounce-card:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+/* Give sticky lesson progress comfortable breathing room */
+.lesson-sticky{padding:15px 16px 17px!important;border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:5px 5px 0 0}
+.lesson-sticky p[id="status"],.lesson-sticky p[id="pct"]{margin:10px 0 9px!important;line-height:1.6}
+.lesson-sticky .track,.lesson-sticky .progress{margin:0 0 2px!important}
+@media(max-width:650px){.lesson-sticky{padding:12px 13px 14px!important}}
