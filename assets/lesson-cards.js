@@ -60,7 +60,7 @@ function init(){
   controls.append(back,counter,next);area.after(controls);
   const numberNav=document.createElement('nav');numberNav.className='quiz-number-nav';numberNav.setAttribute('aria-label','题目导航 · Question navigation');
   const numberButtons=items.map((item,i)=>{const button=document.createElement('button');button.type='button';button.textContent=String(i+1);button.setAttribute('aria-label','第 '+(i+1)+' 题 · Question '+(i+1));button.addEventListener('click',()=>show(i));numberNav.append(button);return button});
-  area.before(numberNav);
+  area.after(numberNav);
   function show(n){current=Math.max(0,Math.min(items.length-1,n));items.forEach((el,i)=>{el.hidden=i!==current;el.classList.add('quiz-card')});counter.textContent=(current+1)+'/'+items.length;counter.className='quiz-counter'+(items[current].dataset.answerStatus?' quiz-counter-'+items[current].dataset.answerStatus:'');back.disabled=current===0;next.disabled=current===items.length-1;numberButtons.forEach((button,i)=>{button.className='quiz-number'+(items[i].dataset.answerStatus?' quiz-number-'+items[i].dataset.answerStatus:'')+(i===current?' quiz-number-active':'');button.setAttribute('aria-current',i===current?'step':'false')})}
   area.addEventListener('quiz-graded',()=>show(current));
   area.addEventListener('quiz-jump',e=>show(e.detail.index));
@@ -71,20 +71,43 @@ function init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
-/* Browser-generated Dutch pronunciation for vocabulary cards. */
-function pronounceDutchCard(entry){
+/* Dutch TTS: keep utterances alive and start playback synchronously from a tap (iOS Safari). */
+let dutchSpeechQueue=[];
+let dutchSpeechSession=0;
+function stopDutchSpeech(){
+ dutchSpeechSession++;
+ dutchSpeechQueue=[];
+ if('speechSynthesis' in window)window.speechSynthesis.cancel();
+}
+function speakDutchText(text,options={}){
  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
-  window.alert('此浏览器不支持语音朗读 · Speech synthesis is unavailable in this browser.');
+  alert('当前浏览器不支持语音合成，请尝试 Safari 或 Chrome。 · Speech synthesis is unavailable in this browser.');
   return;
  }
- const text=String(entry||'').split(';')[0].trim();
- if(!text)return;
- window.speechSynthesis.cancel();
- const utterance=new SpeechSynthesisUtterance(text);
- utterance.lang='nl-NL';
- utterance.rate=0.85;
- const voices=window.speechSynthesis.getVoices();
+ const lines=(Array.isArray(text)?text:[text]).map(s=>String(s||'').trim()).filter(Boolean);
+ if(!lines.length)return;
+ stopDutchSpeech();
+ const session=dutchSpeechSession;
+ const synth=window.speechSynthesis;
+ const voices=synth.getVoices();
  const voice=voices.find(v=>v.lang.toLowerCase()==='nl-nl')||voices.find(v=>v.lang.toLowerCase().startsWith('nl'));
- if(voice)utterance.voice=voice;
- window.speechSynthesis.speak(utterance);
+ let index=0;
+ function next(){
+  if(session!==dutchSpeechSession||index>=lines.length)return;
+  const utterance=new SpeechSynthesisUtterance(lines[index]);
+  utterance.lang='nl-NL';
+  if(voice)utterance.voice=voice;
+  utterance.rate=options.rate||0.85;
+  utterance.pitch=options.alternatePitch?(index%2?0.9:1.12):1;
+  dutchSpeechQueue.push(utterance);
+  utterance.onend=()=>{if(session!==dutchSpeechSession)return;index++;next()};
+  utterance.onerror=e=>{if(session!==dutchSpeechSession||e.error==='canceled'||e.error==='interrupted')return;index++;next()};
+  synth.speak(utterance);
+  if(synth.paused)synth.resume();
+ }
+ // The first speak() is synchronous with the user's tap; don't wait for voiceschanged.
+ next();
+}
+function pronounceDutchCard(entry){
+ speakDutchText(String(entry||'').split(';')[0],{rate:0.85});
 }
