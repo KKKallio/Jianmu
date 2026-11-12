@@ -72,3 +72,6 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 .lesson-page section{margin-bottom:20px}.lesson-page textarea{width:100%;min-height:120px;padding:12px}
 .lesson-page .grammar-explain p{margin:8px 0 14px}
 @media(max-width:650px){.time-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section-title-row{align-items:flex-start}.section-title-row .flashcard-toolbar{margin-left:0}}
+
+/* Consistent centered vocabulary navigation and fill-in tests */
+.flashcard-controls{width:100%;justify-content:center!important;margin:12px auto 2px!important}.flashcard-counter{text-align:center!important;margin:4px auto 14px!important;font-variant-numeric:tabular-nums}.quiz-card[hidden]{display:none!important}.quiz-card .fill-answer{display:block;width:100%;max-width:480px;padding:12px;margin:14px 0;border:1px solid var(--line);border-radius:5px;font:inherit}.quiz-controls{justify-content:center}.section-title-row{width:100%;display:flex;align-items:center;justify-content:space-between}.section-title-row .flashcard-toolbar{margin-left:auto!important}
