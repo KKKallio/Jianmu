@@ -102,3 +102,7 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 
 /* Lesson navigation and model-answer reveal */
 .writing-example[hidden]{display:none!important}.writing-columns:has(.writing-example[hidden]){grid-template-columns:minmax(0,1fr)}.lesson-bottom-nav{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:12px;margin-top:26px}.lesson-bottom-nav a,.lesson-bottom-nav span{display:inline-block;padding:11px 12px;font-size:13px}.lesson-bottom-nav>a:first-child,.lesson-bottom-nav>span:first-child{text-align:left}.lesson-bottom-nav>a:last-child,.lesson-bottom-nav>span:last-child{text-align:right}.lesson-bottom-nav .lesson-nav-home{text-align:center;text-decoration:underline}.lesson-nav-disabled{color:var(--muted);opacity:.55}@media(max-width:560px){.lesson-bottom-nav{gap:4px}.lesson-bottom-nav a,.lesson-bottom-nav span{font-size:11px;padding:8px 3px}}
+
+/* Pronunciation control on Dutch vocabulary cards */
+.flashcard-stage .pronounce-card{display:block;margin:10px auto 0;padding:8px 13px;font-size:13px;line-height:1.4;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.flashcard-stage .pronounce-card:focus-visible{outline:2px solid currentColor;outline-offset:3px}
