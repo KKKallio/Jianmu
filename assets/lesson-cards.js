@@ -1,6 +1,33 @@
 /* Shared one-question-at-a-time exercise template for every lesson section. */
 (function(){
 function init(){
+ const normalize=v=>String(v??'').trim().toLocaleLowerCase('nl-NL').replace(/[.!?]+$/,'').replace(/\s+/g,' ');
+ const original=typeof window.grade==='function'?window.grade:(typeof window.check==='function'?window.check:null);
+ const action=typeof window.grade==='function'?'grade':'check';
+ if(original&&typeof quizzes!=='undefined'){
+  window[action]=function(section){
+   original(section);
+   const questions=quizzes[section]||[];
+   const area=document.getElementById(section);
+   if(!area)return;
+   questions.forEach((q,index)=>{
+    const cell=area.children[index];if(!cell)return;
+    let feedback=cell.querySelector('.answer-feedback');
+    if(!feedback){feedback=document.createElement('div');feedback.className='answer-feedback';feedback.setAttribute('role','status');cell.append(feedback)}
+    const options=q[1]||[];
+    const input=options.length?cell.querySelector('input[type="radio"]:checked'):cell.querySelector('input.fill-answer');
+    const raw=input?input.value:'';
+    const expected=options.length?options[q[2]]:(Array.isArray(q[2])?q[2][0]:'');
+    const correct=options.length?!!input&&Number(raw)===q[2]:!!normalize(raw)&&q[2].some(v=>normalize(v)===normalize(raw));
+    feedback.classList.toggle('correct',correct);
+    feedback.classList.toggle('incorrect',!correct);
+    feedback.textContent=!normalize(raw)?'未作答 · Not answered · 参考答案 · Answer: '+expected:correct?'✓ 正确 · Correct':'✗ 需复习 · Review · 参考答案 · Answer: '+expected;
+   });
+   const summary=document.getElementById(section+'Result');
+   if(summary){summary.hidden=true;summary.setAttribute('aria-hidden','true')}
+  };
+ }
+
  for(const id of ['grammar','listening','reading','knm','review']){
   const area=document.getElementById(id);if(!area)continue;
   const items=Array.from(area.children).filter(el=>el.querySelector('input[type="radio"],input[type="text"]'));
