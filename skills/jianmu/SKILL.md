@@ -42,7 +42,7 @@ modules/language/dutch/lessons/day-NNN.html
 - For grammar, listening, reading, KNM and review, display one question at a time, with ← / →, numeric counter, and `提交 · Submit`.
 - Support both radio choices and fill-in questions. Preserve answers across navigation, report missing responses, accept reasonable answer variants, and reveal feedback **inside each individual question card** after submission, never as a combined answer list below the quiz.
 - Reuse `assets/lesson-cards.js` for question navigation.
-- Track eight sections, retain answers/drafts, and persist progress in browser storage. Add comfortable padding around the sticky progress label and bar; recalculate and refresh saved progress whenever a lesson is reopened, including back-forward cache restores, without resetting completion data. Maintain compatibility with `jianmu-dutch-day1` and `jianmu-dutch-day2`.
+- Track eight sections and retain answers/drafts only during the current page session. On every fresh lesson page load or reopening, reset progress, answers, and draft to a clean 0% state; do not restore previous lesson completion from browser storage. Keep comfortable padding around the sticky progress label and bar. Maintain compatibility with `jianmu-dutch-day1` and `jianmu-dutch-day2`.
 - Assign each lesson a CEFR level based on its actual vocabulary, grammar and tasks (avoid aspirational A2 labels for A1+ lessons). Keep the Dutch index focused on lessons, without introductory goal statements or browser-storage explanations. When generating new days, ensure level-appropriate progression from A1 through A2, B1, B2; don't simply duplicate earlier content.
 
 ## Workflow
