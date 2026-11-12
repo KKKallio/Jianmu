@@ -35,15 +35,15 @@ modules/language/dutch/lessons/day-NNN.html
 4. **口语 · Speaking**: use separate task-switch buttons when multiple tasks exist; provide model responses; do not show a manual speaking-completion button.
 5. **阅读 · Reading**: coherent Dutch text, bilingual expression notes, comprehension.
 6. **写作 · Writing**: authentic task, text area and directly visible model text side-by-side on desktop (stack on mobile); word count; no assessment-criteria table. Keyword/length checks are not official grades.
-7. **荷兰社会 · Dutch society (KNM)**: substantial Chinese, English and Dutch explanations before scenario questions.
-8. **复习 · Review**: cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, center a single link back to the daily course index; do not place a back link above the lesson.
+7. **荷兰社会 · Dutch society (KNM)**: brief, non-redundant Chinese, English and Dutch explanations before scenario questions.
+8. **复习 · Review**: cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, show previous-day navigation at bottom left, the daily course index centered, and next-day navigation at bottom right. Disable unavailable days rather than linking to missing pages; do not place a back link above the lesson.
 
 ## Shared interaction rules
 - For grammar, listening, reading, KNM and review, display one question at a time, with ← / →, numeric counter, and `提交 · Submit`.
 - Support both radio choices and fill-in questions. Preserve answers across navigation, report missing responses, accept reasonable answer variants, and reveal feedback **inside each individual question card** after submission, never as a combined answer list below the quiz.
 - Reuse `assets/lesson-cards.js` for question navigation.
 - Track eight sections, retain answers/drafts, and persist progress in browser storage. Maintain compatibility with `jianmu-dutch-day1` and `jianmu-dutch-day2`.
-- When generating new days, ensure level-appropriate progression from A1 through A2, B1, B2; don't simply duplicate earlier content.
+- Assign each lesson a CEFR level based on its actual vocabulary, grammar and tasks (avoid aspirational A2 labels for A1+ lessons). Keep the Dutch index focused on lessons, without introductory goal statements or browser-storage explanations. When generating new days, ensure level-appropriate progression from A1 through A2, B1, B2; don't simply duplicate earlier content.
 
 ## Workflow
 1. Read the latest affected GitHub files before editing.
