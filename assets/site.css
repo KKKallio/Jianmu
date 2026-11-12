@@ -56,3 +56,19 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 .grammar-explain{padding:4px 0 16px}.grammar-explain h3{font-size:16px;margin:18px 0 5px}
 .lesson-sticky~section{scroll-margin-top:225px}
 @media(max-width:650px){.site-header{height:auto;min-height:68px}.sub-nav{top:106px;padding:9px 16px}.lesson-sticky{top:147px}.lesson-sticky~section{scroll-margin-top:255px}}
+
+/* Lesson content refinements */
+.section-title-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.section-title-row h2{margin:0;flex:1;min-width:200px;border-bottom:0;padding-bottom:0}
+.section-title-row .flashcard-toolbar{margin:0 0 0 auto}
+.section-title-row .flashcard-toolbar button{font-size:12px!important;padding:9px 13px!important}
+.vocab-table-wrap{overflow-x:auto}.vocab-table{border-collapse:collapse;width:100%;margin:12px 0 20px;text-align:left}
+.vocab-table th,.vocab-table td{border-bottom:1px solid var(--line);padding:9px 12px}
+.vocab-table th{background:var(--page)}
+.time-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.time-grid>div{border:1px solid var(--line);padding:14px;text-align:center;border-radius:5px}
+.time-grid strong{display:block;font-size:22px;margin-top:8px}
+.reading-email{padding:16px 20px;border-left:3px solid var(--line);background:var(--page);margin:14px 0}
+.lesson-page section{margin-bottom:20px}.lesson-page textarea{width:100%;min-height:120px;padding:12px}
+.lesson-page .grammar-explain p{margin:8px 0 14px}
+@media(max-width:650px){.time-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section-title-row{align-items:flex-start}.section-title-row .flashcard-toolbar{margin-left:0}}
