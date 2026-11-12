@@ -33,3 +33,26 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 
 /* Jianmu icon and classical text */
 .jianmu-heading{display:flex;align-items:center;gap:18px}.jianmu-logo{width:64px;height:64px;object-fit:contain}.source-quote{border-left:3px solid var(--ink);margin:22px 0;padding:12px 22px;font-size:20px;line-height:2;color:var(--ink)}.pending{opacity:.65}.pending:hover{transform:none!important}
+
+/* Sticky two-level module navigation and lesson controls */
+.site-header{position:sticky;top:0;z-index:100;height:68px}
+.sub-nav{position:sticky;top:68px;z-index:99;background:var(--paper);border-bottom:1px solid var(--line);padding:9px max(24px,calc((100vw - 1120px)/2));display:flex;gap:25px;align-items:center;overflow-x:auto;white-space:nowrap}
+.sub-nav a{font-size:12px;font-weight:750;text-decoration:none;color:var(--muted)!important}
+.sub-nav a:hover{color:var(--ink)!important}
+.lesson-sticky{position:sticky;top:107px;z-index:90;background:var(--page);border-bottom:1px solid var(--line);padding:10px 0 12px;margin-bottom:20px;box-shadow:0 5px 10px -9px #0007}
+.lesson-sticky h1{font-size:clamp(16px,2vw,23px);margin:0 0 3px}.lesson-sticky p{font-size:12px;margin:2px 0 7px}
+.lesson-sticky .track,.lesson-sticky .progress{height:8px;margin:0;overflow:hidden;border-radius:10px}
+.lesson-sticky .track>div,.lesson-sticky .bar{height:100%}
+.flashcard-toolbar{display:flex;justify-content:flex-start;margin:0 0 10px}
+.flashcard-stage{min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid var(--line);border-radius:8px;padding:20px}
+.flashcard-stage .word-illustration{margin:0 auto 10px}.flashcard-stage .term,.flashcard-stage .flash{padding:8px}
+.flashcard-controls{display:flex;justify-content:center;align-items:center;gap:14px;margin:12px 0 4px}
+.flashcard-controls button{width:48px;height:43px;display:inline-flex;align-items:center;justify-content:center;font-size:23px!important;border-radius:8px!important}
+.flashcard-counter{text-align:center;font-size:13px;margin:8px 0}
+.quiz-card{border:1px solid var(--line);border-radius:8px;padding:20px;min-height:145px;margin:12px 0}
+.quiz-card label{display:block;margin:10px 0}.quiz-card input{margin-right:8px}
+.quiz-controls{display:flex;align-items:center;justify-content:center;gap:15px;margin:10px 0}
+.quiz-controls button{min-width:55px}.quiz-counter{text-align:center;font-size:13px}
+.grammar-explain{padding:4px 0 16px}.grammar-explain h3{font-size:16px;margin:18px 0 5px}
+.lesson-sticky~section{scroll-margin-top:225px}
+@media(max-width:650px){.site-header{height:auto;min-height:68px}.sub-nav{top:106px;padding:9px 16px}.lesson-sticky{top:147px}.lesson-sticky~section{scroll-margin-top:255px}}
