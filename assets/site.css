@@ -1,0 +1,22 @@
+/* Jianmu visual identity, adapted from the supplied personal-site screenshot */
+:root{--page:#e9edf5;--paper:#fff;--ink:#121922;--muted:#505966;--line:#d4d9e2;--accent:#1c2737;--shadow:0 1px 3px #1520301a;color-scheme:light}
+:root[data-theme="dark"]{--page:#171d29;--paper:#242c3b;--ink:#edf0f5;--muted:#bac2cf;--line:#414b5b;--accent:#dfe8f8;--shadow:0 1px 5px #0005;color-scheme:dark}
+*{box-sizing:border-box}html{background:var(--page)}body{background:var(--page)!important;color:var(--ink)!important;font-family:Arial,Helvetica,sans-serif!important;max-width:none!important;margin:0!important;padding:0!important;line-height:1.75!important}
+.site-header{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:var(--page);gap:18px}
+.site-brand{font-size:14px!important;font-weight:900;letter-spacing:.23em;text-decoration:none!important;color:var(--ink)!important;white-space:nowrap}
+.site-nav{display:flex;align-items:center;justify-content:center;gap:clamp(15px,4vw,65px);flex-wrap:wrap}
+.site-nav a{font-size:12px!important;font-weight:750;letter-spacing:.2em;color:var(--muted)!important;text-decoration:none!important;text-transform:uppercase}
+.site-nav a:hover,.site-nav a[aria-current="page"]{color:var(--ink)!important;text-decoration:underline!important;text-underline-offset:6px}
+.theme-toggle{border:1px solid var(--line)!important;border-radius:50%!important;background:transparent!important;color:var(--ink)!important;font-size:20px!important;width:42px;height:42px;padding:0!important;cursor:pointer}
+main,.site-content{width:min(100%,1120px)!important;max-width:1120px!important;margin:0 auto!important;padding:42px 24px 90px!important}
+h1,h2,h3{color:var(--ink)!important}h1{letter-spacing:.04em}h2{letter-spacing:.13em;text-transform:uppercase;font-size:clamp(19px,2vw,24px)}h3{letter-spacing:.05em}
+p,.meta,.small,.muted,footer,caption{color:var(--muted)!important}a{color:var(--ink)!important}a:hover{text-decoration-color:var(--muted)}
+.card,section{background:var(--paper)!important;border:1px solid var(--line)!important;border-radius:4px!important;box-shadow:var(--shadow)!important;color:var(--ink)!important;padding:26px!important}
+.card:hover{border-color:var(--muted)!important;transform:translateY(-1px)}
+.card h2{margin:6px 0 12px}.tag,.meta,.pill{color:var(--muted)!important;background:transparent!important;letter-spacing:.14em;font-weight:700;font-size:12px!important}
+section h2{border-bottom:1px solid var(--line);padding-bottom:12px}
+button:not(.theme-toggle){background:var(--accent)!important;color:var(--page)!important;border:1px solid var(--accent)!important;border-radius:3px!important;font:inherit;cursor:pointer}
+textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(--line)}
+.progress,.track{background:var(--line)!important}.bar,#bar{background:#65788d!important}
+.site-footer{border-top:1px solid var(--line);padding:20px 24px;text-align:center;color:var(--muted);font-size:12px;letter-spacing:.18em}
+@media(max-width:650px){.site-header{height:auto;min-height:68px;padding:14px;flex-wrap:wrap}.site-nav{order:3;width:100%;gap:18px;justify-content:flex-start}.site-nav a{font-size:11px!important}main,.site-content{padding:24px 16px 70px!important}.card,section{padding:20px!important}}
