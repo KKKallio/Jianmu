@@ -11,9 +11,9 @@ Website: https://kkkallio.github.io/Jianmu/
 ## Principles
 - Treat Jianmu as a multi-subject learning record, not a language-only site.
 - Chinese first, English second in interface and explanatory text; Dutch remains Dutch in lesson passages and questions.
-- Homepage quotes 《山海经·海内经》: “有木，青叶紫茎，玄华黄实，名曰建木，百仞无枝，有九欘，下有九枸，其实如麻，其叶如芒。大皞爰过，黄帝所为。”
+- Homepage displays only the original Chinese title 《山海经·海内经》 and original Chinese quotation, without translation or interpretive commentary: “有木，青叶紫茎，玄华黄实，名曰建木，百仞无枝，有九欘，下有九枸，其实如麻，其叶如芒。大皞爰过，黄帝所为。”
 - Use the distinct black Jianmu icon; do not introduce branches as a visual or organizational metaphor.
-- Main navigation shows module names only; use sticky subnavigation for language context and a sticky lesson title/progress bar.
+- The top-left brand on Jianmu pages links to the Jianmu homepage (not the personal site). Display progress as 从 0 到 B2 · From 0 to B2. Main navigation shows module names only; use sticky subnavigation for language context and a sticky lesson title/progress bar.
 - Keep responsive styling, dark mode, and shared assets. Do not display suggested study times.
 
 ## Paths
@@ -30,17 +30,17 @@ modules/language/dutch/lessons/day-NNN.html
 
 ## Daily lesson: eight sections
 1. **词汇 · Vocabulary**: centered flip card with ← ⟳ →; numeric counter `2/20` only; Quizlet button at top-right of section heading; do not show a full word list. Export Dutch<TAB>English, one per line; nouns with `de/het`; verbs as `infinitive; past tense; past participle`.
-2. **语法 · Grammar**: bilingual explanation, natural Dutch examples, interactive exercises.
+2. **语法 · Grammar**: list topics with simple numbered labels, not heavy black headings; include telling time here, not in vocabulary; bilingual explanations, natural Dutch examples, interactive exercises.
 3. **听力 · Listening**: original dialogue, full hideable transcript, comprehension, free external listening links. Label browser TTS accurately; never imply external audio matches the original transcript.
-4. **口语 · Speaking**: retelling and communicative task, model answer, explicit completion control.
+4. **口语 · Speaking**: use separate task-switch buttons when multiple tasks exist; provide model responses; do not show a manual speaking-completion button.
 5. **阅读 · Reading**: coherent Dutch text, bilingual expression notes, comprehension.
-6. **写作 · Writing**: authentic task, text area, word count, optional model text and criteria. Keyword/length checks are not official grades.
-7. **荷兰社会 · Dutch society (KNM)**: practical civic information and scenario questions.
-8. **复习 · Review**: cumulative earlier material; use diagnostic questions on Day 001.
+6. **写作 · Writing**: authentic task, text area and directly visible model text side-by-side on desktop (stack on mobile); word count; no assessment-criteria table. Keyword/length checks are not official grades.
+7. **荷兰社会 · Dutch society (KNM)**: substantial Chinese, English and Dutch explanations before scenario questions.
+8. **复习 · Review**: cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, center a single link back to the daily course index; do not place a back link above the lesson.
 
 ## Shared interaction rules
 - For grammar, listening, reading, KNM and review, display one question at a time, with ← / →, numeric counter, and `提交 · Submit`.
-- Support both radio choices and fill-in questions. Preserve answers across navigation, report missing responses, accept reasonable answer variants, and reveal feedback after submission.
+- Support both radio choices and fill-in questions. Preserve answers across navigation, report missing responses, accept reasonable answer variants, and reveal feedback **inside each individual question card** after submission, never as a combined answer list below the quiz.
 - Reuse `assets/lesson-cards.js` for question navigation.
 - Track eight sections, retain answers/drafts, and persist progress in browser storage. Maintain compatibility with `jianmu-dutch-day1` and `jianmu-dutch-day2`.
 - When generating new days, ensure level-appropriate progression from A1 through A2, B1, B2; don't simply duplicate earlier content.
