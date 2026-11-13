@@ -52,4 +52,4 @@ modules/language/dutch/lessons/day-NNN.html
 4. Validate HTML structure and JavaScript syntax, link paths, flashcards, Quizlet export, fill-in normalization, one-at-a-time questions, answer persistence, progress, accessibility, and mobile sticky offsets.
 5. Commit descriptive changes. Distinguish code checks from live browser testing; never claim an unperformed test.
 
-Example: “Create Day 003 in Jianmu with all eight bilingual interactive sections, update the Dutch index, and preserve the shared template.”
+Example: “Create Day 004 in Jianmu with all eight bilingual interactive sections, update the Dutch index, and preserve the shared template.”
