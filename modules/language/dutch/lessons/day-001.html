@@ -23,5 +23,5 @@ function showSpeakingTask(n){for(const k of [1,2])document.getElementById('speak
 render();if(state.draft){document.getElementById('writing').value=state.draft;document.getElementById('words').textContent=state.draft.trim().split(/\s+/).length+' words'}if(state.answers){Object.entries(state.answers).forEach(([id,vals])=>vals.forEach((v,j)=>{const radio=document.querySelector('input[name="'+id+j+'"][value="'+v+'"]');const fill=document.querySelector('input.fill-answer[name="'+id+j+'"]');if(radio)radio.checked=true;else if(fill)fill.value=v}))}flash();progress();
 // Each fresh visit starts a new practice session; no lesson progress is restored.
 </script>
-<script src="../../../../assets/lesson-cards.js"></script>
+<script src="../../../../assets/lesson-cards.js?v=20261113-audio2"></script>
 </body></html>
