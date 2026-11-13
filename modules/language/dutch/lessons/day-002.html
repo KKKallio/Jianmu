@@ -16,4 +16,4 @@ function scoreWriting(){document.getElementById('writingExample').hidden=false;c
 function showSpeakingTask(n){for(const k of [1,2])document.getElementById('speaking-task-'+k).hidden=k!==n;state.speakingViewed=state.speakingViewed||[];if(!state.speakingViewed.includes(n))state.speakingViewed.push(n);if(state.speakingViewed.length===2)mark('speaking');else save()}
 render();if(state.draft){document.getElementById('writing').value=state.draft;writingChange()}if(state.answers){Object.entries(state.answers).forEach(([section,vals])=>vals.forEach((v,i)=>{const radio=document.querySelector('input[name="'+section+i+'"][value="'+v+'"]');const fill=document.querySelector('input.fill-answer[name="'+section+i+'"]');if(radio)radio.checked=true;else if(fill)fill.value=v}))}card();progress();
 // Each fresh visit starts a new practice session; no lesson progress is restored.
-</script><script src="../../../../assets/lesson-cards.js"></script></body></html>
+</script><script src="../../../../assets/lesson-cards.js?v=20261113-audio2"></script></body></html>
