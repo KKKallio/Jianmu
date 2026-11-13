@@ -88,6 +88,7 @@ function dutchAudioStatus(message,type){
 }
 function stopDutchSpeech(){
  dutchSpeechSession++;
+ dutchDialogueActive=false;
  if(dutchAudioTimer){clearTimeout(dutchAudioTimer);dutchAudioTimer=null}
  if(dutchAudio){dutchAudio.pause();dutchAudio.removeAttribute('src');dutchAudio=null}
  dutchSpeechQueue=[];
@@ -147,39 +148,56 @@ function speakDutchText(text,options={}){
  audio.addEventListener('error',()=>fail('audio request error'));
  playNext();
 }
-/* Two-speaker Dutch dialogues. Distinct installed nl-NL voices are used where
-   available; otherwise differentiated pitch is a fallback, not a true second voice. */
+/* Character-aware Dutch dialogue: one utterance per turn, one pass per tap. */
+let dutchDialogueActive=false;
 function speakDutchDialogue(turns,options={}){
- const rows=turns.map((turn,i)=>typeof turn==='string'?{speaker:i%2,text:turn}:turn).filter(t=>t&&t.text);
+ if(dutchDialogueActive)return; // Ignore repeated taps while the dialogue is playing.
+ const rows=turns.map((turn,i)=>typeof turn==='string'?{speaker:i%2?'Man':'Emma',text:turn}:turn).filter(t=>t&&t.text&&String(t.text).trim());
  if(!rows.length)return;
  stopDutchSpeech();
  const session=dutchSpeechSession;
  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
-  dutchAudioStatus('双人对话需要浏览器语音功能 · Two-speaker speech is unavailable in this browser.','error');return;
+  dutchAudioStatus('浏览器不支持荷兰语对话朗读 · Dialogue speech is unavailable.','error');return;
  }
  const synth=window.speechSynthesis;
  const voices=synth.getVoices().filter(v=>v.lang.toLowerCase().startsWith('nl'));
- const femaleHints=/female|vrouw|fem|claire|ellen|xander|lena|lotte|fleur/i;
- const maleHints=/male|man|masc|ruben|maarten|david|thomas|jeroen|frank/i;
- const female=voices.find(v=>femaleHints.test(v.name))||voices[0]||null;
- const male=voices.find(v=>v!==female&&maleHints.test(v.name))||voices.find(v=>v!==female)||null;
- if(!female&&!male){
-  dutchAudioStatus('没有可用的荷兰语设备语音 · No Dutch system voice is installed. Install Dutch voices to hear separate speakers.','error');return;
+ if(!voices.length){
+  dutchAudioStatus('没有可用的荷兰语语音 · No Dutch voice installed on this device.','error');return;
  }
- const distinct=!!(female&&male&&female!==male);
- dutchAudioStatus(distinct?'双人荷兰语对话 · Two Dutch voices available':'荷兰语对话 · Only one Dutch voice available; pitch will distinguish speakers','loading');
- let i=0;
+ const femaleHints=/female|vrouw|fem|claire|ellen|lena|lotte|fleur/i;
+ const maleHints=/male|man|masc|ruben|maarten|david|thomas|jeroen|frank/i;
+ const femaleVoices=voices.filter(v=>femaleHints.test(v.name)&&!maleHints.test(v.name));
+ const maleVoices=voices.filter(v=>maleHints.test(v.name)&&!femaleHints.test(v.name));
+ const primaryFemale=femaleVoices[0]||voices[0];
+ const secondaryFemale=femaleVoices.find(v=>v!==primaryFemale)||voices.find(v=>v!==primaryFemale&&!maleVoices.includes(v))||primaryFemale;
+ const primaryMale=maleVoices[0]||voices.find(v=>v!==primaryFemale)||primaryFemale;
+ const speakerNames=[...new Set(rows.map(r=>String(r.speaker)))];
+ const femaleNames=new Set(['Emma','Lisa','Vrouw']);
+ const voiceFor=(name)=>{
+  if(name==='Emma'||name==='Vrouw')return primaryFemale;
+  if(name==='Lisa')return secondaryFemale;
+  return primaryMale;
+ };
+ dutchDialogueActive=true;
+ let index=0;
+ function finish(message,type){
+  if(session!==dutchSpeechSession)return;
+  dutchDialogueActive=false;
+  dutchSpeechQueue=[];
+  dutchAudioStatus(message,type);
+ }
  function next(){
-  if(session!==dutchSpeechSession||i>=rows.length)return;
-  const turn=rows[i],isMale=turn.speaker===1||turn.speaker==='man'||turn.speaker==='male';
-  const utterance=new SpeechSynthesisUtterance(turn.text);
-  utterance.lang='nl-NL';utterance.voice=(isMale?male||female:female||male);
-  utterance.rate=options.rate||0.88;
-  utterance.pitch=distinct?1:(isMale?0.78:1.18);
+  if(session!==dutchSpeechSession)return;
+  if(index>=rows.length){finish('对话播放完成 · Dialogue finished (once)','done');return}
+  const row=rows[index],name=String(row.speaker),utterance=new SpeechSynthesisUtterance(String(row.text).trim());
+  const voice=voiceFor(name);
+  utterance.lang='nl-NL';utterance.voice=voice;utterance.rate=options.rate||0.88;
+  const isFemale=femaleNames.has(name);
+  utterance.pitch=voice===primaryFemale&&name==='Lisa'?1.13:voice===primaryFemale&&!isFemale?0.8:1;
   dutchSpeechQueue.push(utterance);
-  utterance.onstart=()=>dutchAudioStatus((isMale?'Man':'Vrouw')+' · '+(i+1)+' / '+rows.length,'playing');
-  utterance.onend=()=>{i++;if(i===rows.length)dutchAudioStatus('对话播放完成 · Dialogue finished','done');else next()};
-  utterance.onerror=e=>dutchAudioStatus('对话语音失败 · Dialogue speech failed: '+(e.error||'unknown'),'error');
+  utterance.onstart=()=>{if(session===dutchSpeechSession)dutchAudioStatus(name+' · '+(index+1)+' / '+rows.length,'playing')};
+  utterance.onend=()=>{if(session!==dutchSpeechSession)return;index++;next()};
+  utterance.onerror=e=>finish('对话播放失败 · Dialogue playback error: '+(e.error||'unknown'),'error');
   synth.speak(utterance);
   if(synth.paused)synth.resume();
  }
