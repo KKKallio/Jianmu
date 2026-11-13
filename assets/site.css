@@ -129,3 +129,16 @@ textarea,input,select{background:var(--paper);color:var(--ink);border-color:var(
 .quiz-number-nav .quiz-number-correct{background:#e7f5e9!important;border-color:#a4d4ac!important;color:#245b34!important}
 .quiz-number-nav .quiz-number-incorrect{background:#fdebea!important;border-color:#eab0ab!important;color:#8c302c!important}
 .quiz-incomplete{padding:10px 12px;border:1px solid #d6b77a;border-radius:6px;margin:12px 0;color:var(--ink);font-size:14px}
+
+/* Daily lessons: stack the sticky navigation and progress panel without gaps. */
+body:has(.lesson-page){--jianmu-header-height:68px;--jianmu-subnav-height:39px}
+body:has(.lesson-page) .site-header{top:0}
+body:has(.lesson-page) .sub-nav{top:var(--jianmu-header-height);margin:0}
+body:has(.lesson-page) .lesson-sticky{
+ top:calc(var(--jianmu-header-height) + var(--jianmu-subnav-height));
+ margin-top:0;
+ border-radius:0;
+}
+body:has(.lesson-page) .lesson-sticky~section{
+ scroll-margin-top:calc(var(--jianmu-header-height) + var(--jianmu-subnav-height) + 155px);
+}
