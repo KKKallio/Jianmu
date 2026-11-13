@@ -72,42 +72,67 @@ function init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
-/* Dutch TTS: keep utterances alive and start playback synchronously from a tap (iOS Safari). */
+/* Dutch pronunciation: streamed Dutch audio first, device speech as fallback.
+   Audio.play() is called in the original tap handler for iOS browser compatibility.
+   Online playback requires connectivity to the external speech provider. */
+let dutchAudio=null;
 let dutchSpeechQueue=[];
 let dutchSpeechSession=0;
 function stopDutchSpeech(){
  dutchSpeechSession++;
+ if(dutchAudio){dutchAudio.pause();dutchAudio.removeAttribute('src');dutchAudio.load();dutchAudio=null}
  dutchSpeechQueue=[];
  if('speechSynthesis' in window)window.speechSynthesis.cancel();
 }
-function speakDutchText(text,options={}){
+function dutchSpeechFallback(lines,session,options){
+ if(session!==dutchSpeechSession)return;
  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
-  alert('当前浏览器不支持语音合成，请尝试 Safari 或 Chrome。 · Speech synthesis is unavailable in this browser.');
+  alert('荷兰语音频暂时无法播放。请检查网络连接后重试。 · Dutch audio unavailable. Check your connection and retry.');
   return;
  }
- const lines=(Array.isArray(text)?text:[text]).map(s=>String(s||'').trim()).filter(Boolean);
- if(!lines.length)return;
- stopDutchSpeech();
- const session=dutchSpeechSession;
  const synth=window.speechSynthesis;
  const voices=synth.getVoices();
  const voice=voices.find(v=>v.lang.toLowerCase()==='nl-nl')||voices.find(v=>v.lang.toLowerCase().startsWith('nl'));
+ if(!voice){
+  alert('在线荷兰语音频不可用，设备也没有荷兰语语音。请检查网络或下载 Dutch (Netherlands) voice。 · Online Dutch audio unavailable and no Dutch device voice was found.');
+  return;
+ }
  let index=0;
  function next(){
   if(session!==dutchSpeechSession||index>=lines.length)return;
   const utterance=new SpeechSynthesisUtterance(lines[index]);
-  utterance.lang='nl-NL';
-  if(voice)utterance.voice=voice;
+  utterance.lang='nl-NL';utterance.voice=voice;
   utterance.rate=options.rate||0.85;
   utterance.pitch=options.alternatePitch?(index%2?0.9:1.12):1;
   dutchSpeechQueue.push(utterance);
-  utterance.onend=()=>{if(session!==dutchSpeechSession)return;index++;next()};
-  utterance.onerror=e=>{if(session!==dutchSpeechSession||e.error==='canceled'||e.error==='interrupted')return;index++;next()};
+  utterance.onend=()=>{index++;next()};
+  utterance.onerror=()=>{if(session===dutchSpeechSession){index++;next()}};
   synth.speak(utterance);
   if(synth.paused)synth.resume();
  }
- // The first speak() is synchronous with the user's tap; don't wait for voiceschanged.
  next();
+}
+function speakDutchText(text,options={}){
+ const lines=(Array.isArray(text)?text:[text]).map(s=>String(s||'').trim()).filter(Boolean);
+ if(!lines.length)return;
+ stopDutchSpeech();
+ const session=dutchSpeechSession;
+ let index=0;
+ // Use a regular HTMLAudioElement instead of relying on iOS Web Speech voices.
+ // This external endpoint is not guaranteed; a Dutch system voice is the fallback.
+ const audio=new Audio();
+ dutchAudio=audio;
+ audio.preload='auto';
+ function playNext(){
+  if(session!==dutchSpeechSession||index>=lines.length)return;
+  const sentence=lines[index];
+  audio.src='https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=nl&q='+encodeURIComponent(sentence);
+  const playback=audio.play();
+  if(playback&&typeof playback.catch==='function')playback.catch(()=>dutchSpeechFallback(lines.slice(index),session,options));
+ }
+ audio.addEventListener('ended',()=>{if(session!==dutchSpeechSession)return;index++;playNext()});
+ audio.addEventListener('error',()=>{if(session!==dutchSpeechSession)return;audio.pause();dutchSpeechFallback(lines.slice(index),session,options)},{once:true});
+ playNext();
 }
 function pronounceDutchCard(entry){
  speakDutchText(String(entry||'').split(';')[0],{rate:0.85});
