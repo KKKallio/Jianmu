@@ -12,7 +12,8 @@ Website: https://kkkallio.github.io/Jianmu/
 - Treat Jianmu as a multi-subject learning record, not a language-only site.
 - Chinese first, English second in interface and explanatory text; Dutch remains Dutch in lesson passages and questions.
 - Homepage displays only the original Chinese title 《山海经·海内经》 and original Chinese quotation, without translation or interpretive commentary: “有木，青叶紫茎，玄华黄实，名曰建木，百仞无枝，有九欘，下有九枸，其实如麻，其叶如芒。大皞爰过，黄帝所为。”
-- Use the distinct black Jianmu icon; do not introduce branches as a visual or organizational metaphor.
+- Use the distinct branchless Jianmu icon in a muted Morandi palette inspired by the original description 青叶紫茎，玄华黄实: sage green leaves `#829B8C`, dusty mauve-purple stem `#97849F`, charcoal-dark flower `#48434B`, and ochre-gold fruit `#C5AC76`. Do not introduce branches as a visual or organizational metaphor.
+- Keep the entire website and future social-sharing cover designs in a coherent low-saturation Morandi palette: warm ivory backgrounds, warm charcoal text, muted lavender accents, sage progress indicators, and soft neutral borders. Maintain readable contrast in light and dark modes; avoid saturated decorative colors except semantic elements such as the authentic Netherlands flag.
 - The top-left brand on Jianmu pages links to the Jianmu homepage (not the personal site). Display progress as 从 0 到 B2 · From 0 to B2. Main navigation shows module names only; use sticky subnavigation for language context and a sticky lesson title/progress bar.
 - Keep responsive styling, dark mode, and shared assets. Do not display suggested study times.
 
