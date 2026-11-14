@@ -36,7 +36,7 @@ modules/language/dutch/lessons/day-NNN.html
 5. **阅读 · Reading**: coherent Dutch text, bilingual expression notes, comprehension.
 6. **写作 · Writing**: authentic task, text area and directly visible model text side-by-side on desktop (stack on mobile); word count; no assessment-criteria table. Keyword/length checks are not official grades.
 7. **荷兰社会 · Dutch society (KNM)**: brief, non-redundant Chinese, English and Dutch explanations before scenario questions.
-8. **复习 · Review**: no introductory paragraphs before questions; cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, show previous-day navigation at bottom left, the daily course index centered, and next-day navigation at bottom right. Disable unavailable days rather than linking to missing pages; do not place a back link above the lesson.
+8. **复习 · Review**: never prefix review questions with day numbers or day labels (such as `Day 1`, `Day 001`, or `Day 1–4`); present only the question text; no introductory paragraphs before questions; cumulative earlier material; use diagnostic questions on Day 001. Review is the last learning section. After it, show previous-day navigation at bottom left, the daily course index centered, and next-day navigation at bottom right. Disable unavailable days rather than linking to missing pages; do not place a back link above the lesson.
 
 ## Shared interaction rules
 - For grammar, listening, reading, KNM and review, display one question at a time, with ← / →, numeric counter, a compact numbered question navigation bar below the question card, and `提交 · Submit`.
