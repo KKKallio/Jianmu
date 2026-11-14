@@ -2,20 +2,20 @@
 <title id="title">建木 · Jianmu</title>
 <desc id="desc">青叶紫茎，玄华黄实。Green leaves, purple stem, dark flower and golden fruit, inspired by the Shan Hai Jing.</desc>
 <!-- 青叶 · Green leaves -->
-<g fill="#318C72">
+<g fill="#829B8C">
 <ellipse cx="47" cy="26" rx="6" ry="13" transform="rotate(-35 47 26)"/>
 <ellipse cx="81" cy="26" rx="6" ry="13" transform="rotate(35 81 26)"/>
 <ellipse cx="35" cy="37" rx="6" ry="13" transform="rotate(-58 35 37)"/>
 <ellipse cx="93" cy="37" rx="6" ry="13" transform="rotate(58 93 37)"/>
 </g>
 <!-- 紫茎 · Purple stem; no branches -->
-<g fill="#77529B">
+<g fill="#97849F">
 <path d="M60 32h8v76h-8z"/>
 <path d="M64 105c-6 7-14 10-25 12 9-7 16-14 21-24zm0 0c6 7 14 10 25 12-9-7-16-14-21-24z"/>
 <path d="M60 105c-2 10-5 15-10 20 2-11 4-18 10-24zm8 0c2 10 5 15 10 20-2-11-4-18-10-24z"/>
 </g>
 <!-- 玄华 · Dark flower -->
-<ellipse cx="64" cy="25" rx="7" ry="15" fill="#20222B"/>
+<ellipse cx="64" cy="25" rx="7" ry="15" fill="#48434B"/>
 <!-- 黄实 · Golden fruit -->
-<g fill="#D6A82F"><circle cx="48" cy="42" r="4"/><circle cx="80" cy="42" r="4"/><circle cx="64" cy="11" r="3"/></g>
+<g fill="#C5AC76"><circle cx="48" cy="42" r="4"/><circle cx="80" cy="42" r="4"/><circle cx="64" cy="11" r="3"/></g>
 </svg>
