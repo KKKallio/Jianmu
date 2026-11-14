@@ -46,6 +46,13 @@ modules/language/dutch/lessons/day-NNN.html
 - Mark quiz-based sections complete only after every question in that section has been answered and submitted, regardless of whether answers are correct. Track eight sections and retain answers/drafts only during the current page session. On every fresh lesson page load or reopening, reset progress, answers, and draft to a clean 0% state; do not restore previous lesson completion from browser storage. Keep comfortable padding around the sticky progress label and bar. Maintain compatibility with `jianmu-dutch-day1` and `jianmu-dutch-day2`.
 - Assign each lesson a CEFR level based on its actual vocabulary, grammar and tasks. Display only standard levels A1, A2, B1 or B2, never A1+ or similar intermediate labels. Lesson title must show the correct Chinese day number and matching three-digit English day number. The short subtitle below the title should contain only the lesson topic in Chinese and English followed by its CEFR level, without KNM basics or other extra tags. Keep the Dutch index focused on lessons, without introductory goal statements or browser-storage explanations. When generating new days, ensure level-appropriate progression from A1 through A2, B1, B2; don't simply duplicate earlier content.
 
+## Social sharing covers
+- Every public page must have its own 1200 × 630 Morandi-style cover artwork in `assets/social/<page-id>.svg` and a generated PNG of the same basename. Use `home`, `language`, `dutch`, and `day-NNN` for current page IDs.
+- Follow the hierarchy: world-tree branding for home; module name for Language; Dutch for the course index; and Day number, Dutch topic, Chinese topic and CEFR level for each lesson. Keep the original branchless Jianmu symbol and muted four-color palette.
+- Add static, absolute-URL Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`, `og:image:width`, `og:image:height`) and `twitter:card=summary_large_image` to each page head. Set `og:image` to its actual PNG asset, never SVG; social crawlers generally do not run JavaScript.
+- `.github/workflows/social-covers.yml` converts SVGs into PNGs using CairoSVG and commits them. Verify the PNG exists at its public URL after the workflow runs before claiming previews work. Social networks may cache old previews.
+- For each new lesson, add its own SVG cover and OG metadata; ensure its PNG is generated and accessible.
+
 ## Workflow
 1. Read the latest affected GitHub files before editing.
 2. Prefer shared CSS/JS for repeated UI changes; preserve unrelated content.
