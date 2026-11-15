@@ -77,15 +77,18 @@ let dutchAudio=null,dutchSpeechQueue=[],dutchSpeechSession=0,dutchAudioTimer=nul
 function dutchAudioStatus(message,type){
  let status=document.getElementById('dutch-audio-status');
  if(!status){
-  status=document.createElement('div');status.id='dutch-audio-status';
-  status.setAttribute('role','status');status.setAttribute('aria-live','polite');
-  status.style.cssText='position:fixed;bottom:calc(12px + env(safe-area-inset-bottom, 0px));left:12px;right:12px;z-index:9999;margin:auto;max-width:520px;padding:12px 15px;border-radius:12px;border:1px solid #b6cabb;box-shadow:0 4px 20px #0002;font:14px/1.5 system-ui;background:#f5fff6;color:#1d4930;';
+  status=document.createElement('div');
+  status.id='dutch-audio-status';
+  status.setAttribute('role','status');
+  status.setAttribute('aria-live','polite');
   document.body.append(status);
  }
+ status.hidden=false;
  status.textContent=message;
- status.style.background=type==='error'?'#fff0f0':type==='playing'?'#effaf2':'#f5fff6';
- status.style.borderColor=type==='error'?'#e6aaaa':'#b6cabb';
+ const error=type==='error',playing=type==='playing';
+ status.style.cssText='display:block;position:fixed;bottom:calc(12px + env(safe-area-inset-bottom, 0px));left:12px;right:12px;z-index:9999;margin:auto;max-width:520px;padding:12px 15px;border-radius:12px;border:2px solid '+(error?'#c56f72':playing?'#6c9d7e':'#b6cabb')+';box-shadow:0 4px 20px #0002;font:14px/1.5 system-ui;background:'+(error?'#fff0f0':playing?'#effaf2':'#f5fff6')+';color:'+(error?'#873b43':'#1d4930')+';';
 }
+
 function stopDutchSpeech(){
  dutchSpeechSession++;
  dutchDialogueActive=false;
