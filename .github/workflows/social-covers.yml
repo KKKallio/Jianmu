@@ -8,11 +8,16 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: social-covers-main
+  cancel-in-progress: false
 jobs:
   render:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -20,23 +25,45 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y fonts-noto-cjk
+          python -m pip install --upgrade pip
           python -m pip install cairosvg
-      - name: Render 1200x630 PNG covers
+      - name: Render and verify 1200x630 PNG covers
         run: |
           python - <<'PY'
           from pathlib import Path
           import cairosvg
-          for source in sorted(Path('assets/social').glob('*.svg')):
+          sources = sorted(Path('assets/social').glob('*.svg'))
+          if not sources:
+              raise SystemExit('No SVG covers found')
+          for source in sources:
               dest = source.with_suffix('.png')
-              cairosvg.svg2png(url=str(source),write_to=str(dest),output_width=1200,output_height=630)
-              print(dest)
+              cairosvg.svg2png(url=str(source), write_to=str(dest), output_width=1200, output_height=630)
+              with dest.open('rb') as handle:
+                  assert handle.read(8) == b'\x89PNG\r\n\x1a\n', f'Invalid PNG: {dest}'
+              print(f'OK: {dest} ({dest.stat().st_size} bytes)')
           PY
       - name: Commit generated PNGs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/social/*.png
-          if ! git diff --cached --quiet; then
-            git commit -m "Render social sharing PNG covers"
-            git push
+          git add -A assets/social/
+          if git diff --cached --quiet; then
+            echo "No cover changes"
+            exit 0
           fi
+          git commit -m "Render social sharing PNG covers"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "Rebase conflict, cannot safely push generated PNGs"
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "PNG covers committed successfully"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Could not push PNG covers after retries"
+          exit 1
