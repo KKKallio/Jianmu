@@ -142,3 +142,12 @@ body:has(.lesson-page) .lesson-sticky{
 body:has(.lesson-page) .lesson-sticky~section{
  scroll-margin-top:calc(var(--jianmu-header-height) + var(--jianmu-subnav-height) + 155px);
 }
+
+/* Bilingual lesson explanations: separate paragraphs, compact example groups. */
+.grammar-explain .grammar-topic{white-space:normal}
+.grammar-explain .grammar-copy{margin:0 0 16px}
+.grammar-explain .grammar-copy p{margin:0 0 4px;line-height:1.6}
+.grammar-explain .grammar-copy p:last-child{margin-bottom:0}
+.bilingual-copy{margin:0 0 14px}
+.bilingual-copy p{margin:0 0 5px;line-height:1.65}
+.bilingual-copy p:last-child{margin-bottom:0}
