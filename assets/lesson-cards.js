@@ -42,7 +42,7 @@ function init(){
     cell.dataset.answerStatus=!normalize(raw)?'unanswered':correct?'correct':'incorrect';
     feedback.classList.toggle('correct',correct);
     feedback.classList.toggle('incorrect',!correct);
-    feedback.textContent=correct?'✓ 正确 · Correct':'✗ 错误 · Incorrect · 正确答案 · Correct answer: '+expected+'。 '+(explanations[lessonId]?.[section]?.[index]||'请对照课文或语法说明。 · Review the lesson explanation.');
+    feedback.textContent=(correct?'✓ 正确\nCorrect':'✗ 错误\nIncorrect\n正确答案\nCorrect answer: '+expected+'。\n'+(explanations[lessonId]?.[section]?.[index]||'请对照课文或语法说明。 · Review the lesson explanation.')).replace(/ · /g,'\n');feedback.style.whiteSpace='pre-line';
    });
    const summary=document.getElementById(section+'Result');
    if(summary){summary.hidden=false;summary.removeAttribute('aria-hidden');summary.classList.add('quiz-score-summary');summary.textContent='✓ 正确 · Correct: '+correctCount+' / '+questions.length+'   ·   ✗ 错误 · Incorrect: '+(questions.length-correctCount-questions.filter((q,i)=>area.children[i]?.dataset.answerStatus==='unanswered').length)+(allAnswered?'':'   ·   请完成所有题目 · Answer every question')}
