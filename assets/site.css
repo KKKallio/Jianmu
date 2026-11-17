@@ -151,3 +151,17 @@ body:has(.lesson-page) .lesson-sticky~section{
 .bilingual-copy{margin:0 0 14px}
 .bilingual-copy p{margin:0 0 5px;line-height:1.65}
 .bilingual-copy p:last-child{margin-bottom:0}
+
+/* Grammar rhythm: tight bilingual lines, distinct examples, generous topic separation. */
+.lesson-page .grammar-explain .grammar-topic{margin:20px 0 7px!important;line-height:1.45}
+.lesson-page .grammar-explain .grammar-topic:first-child{margin-top:8px!important}
+.lesson-page .grammar-explain .grammar-copy{margin:0 0 9px}
+.lesson-page .grammar-explain .grammar-copy p{margin:0 0 2px!important;line-height:1.48}
+.lesson-page .grammar-explain .grammar-copy p:last-child{margin-bottom:0!important}
+.lesson-page .grammar-explain .grammar-example{margin:0 0 12px;padding:0 0 0 10px;border-left:2px solid var(--border, #d6d0cb)}
+.lesson-page .grammar-explain .grammar-example p{margin:0 0 2px!important;line-height:1.48}
+.lesson-page .grammar-explain .grammar-example p:last-child{margin-bottom:0!important}
+.lesson-page .grammar-explain .grammar-example p:first-child{font-weight:500}
+.lesson-page .grammar-explain .grammar-note{margin:0 0 9px}
+.lesson-page .grammar-explain .grammar-note p{margin:0 0 2px!important;line-height:1.48}
+.lesson-page .grammar-explain .grammar-note p:last-child{margin-bottom:0!important}
