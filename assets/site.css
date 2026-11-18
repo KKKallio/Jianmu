@@ -180,3 +180,14 @@ body:has(.lesson-page) .lesson-sticky~section{
 .lesson-page .grammar-explain .grammar-note p:last-child,
 .lesson-page .grammar-explain .grammar-example p:last-child{margin-bottom:0!important}
 .lesson-page .grammar-explain .grammar-topic{margin-top:22px!important;margin-bottom:9px!important}
+
+/* Conceptual explanations are plain prose; only complete Dutch/Chinese/English examples use quote styling. */
+.lesson-page .grammar-explain .grammar-note{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  padding:0!important;
+  margin:0 0 10px!important;
+}
+.lesson-page .grammar-explain .grammar-note p{margin:0 0 3px!important;line-height:1.58}
+.lesson-page .grammar-explain .grammar-note p:last-child{margin-bottom:0!important}
