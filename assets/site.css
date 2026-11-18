@@ -165,3 +165,18 @@ body:has(.lesson-page) .lesson-sticky~section{
 .lesson-page .grammar-explain .grammar-note{margin:0 0 9px}
 .lesson-page .grammar-explain .grammar-note p{margin:0 0 2px!important;line-height:1.48}
 .lesson-page .grammar-explain .grammar-note p:last-child{margin-bottom:0!important}
+
+/* One quote-style unit per explanation or example, with all languages together. */
+.lesson-page .grammar-explain .grammar-note,
+.lesson-page .grammar-explain .grammar-example{
+  padding:8px 12px;
+  margin:0 0 11px;
+  border-left:3px solid #a69baa;
+  background:rgba(166,155,170,.075);
+  border-radius:0 6px 6px 0;
+}
+.lesson-page .grammar-explain .grammar-note p,
+.lesson-page .grammar-explain .grammar-example p{margin:0 0 3px!important;line-height:1.48}
+.lesson-page .grammar-explain .grammar-note p:last-child,
+.lesson-page .grammar-explain .grammar-example p:last-child{margin-bottom:0!important}
+.lesson-page .grammar-explain .grammar-topic{margin-top:22px!important;margin-bottom:9px!important}
